@@ -1,3 +1,4 @@
+
 package hello.upload.controller;
 
 import hello.upload.restTemplate.multipart.TestRestTemplateMultipartExchanger;
@@ -9,18 +10,17 @@ import org.springframework.http.MediaType;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
-public class ServletUploadControllerV1FailTest extends TestRestTemplateMultipartExchanger {
+public class ServletUploadControllerV2FailTest extends TestRestTemplateMultipartExchanger {
 
     private static final String RESOURCES_IMAGE_PATH = "src/test/resources/image/";
 
     @Test
-    void saveFileV1ExceedFileSizeTest() throws Exception {
+    void saveFileV2ExceedFileSizeTest() throws Exception {
         //given
-        String url = "/servlet/v1/upload";
+        String url = "/servlet/v2/upload";
 
-        String fileName = "highQualityImage";
-        String contentType = "jpg";
-        String filePath = "%s%s.%s".formatted(RESOURCES_IMAGE_PATH, fileName, contentType);
+        String fileName = "highQualityImage.jpg";
+        String filePath = RESOURCES_IMAGE_PATH + fileName;
         String fileFieldName = "file";
 
         String textFieldName = "text";
@@ -42,4 +42,5 @@ public class ServletUploadControllerV1FailTest extends TestRestTemplateMultipart
     public void addHeader(HttpHeaders headers) {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
     }
+
 }
