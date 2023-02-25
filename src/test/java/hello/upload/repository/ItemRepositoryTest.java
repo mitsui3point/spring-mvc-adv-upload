@@ -17,6 +17,7 @@ public class ItemRepositoryTest {
     @BeforeEach
     void setUp() {
         itemRepository = new ItemRepository();
+        itemRepository.clear();
     }
 
     @Test

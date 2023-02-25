@@ -20,4 +20,9 @@ public class ItemRepository {
     public Optional<Item> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
+
+    public void clear() {
+        store.clear();
+        sequence.set(0L);
+    }
 }
