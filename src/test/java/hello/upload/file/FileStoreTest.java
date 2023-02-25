@@ -32,12 +32,12 @@ public class FileStoreTest {
     private FileStore fileStore;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InterruptedException {
         deleteUploadTargetDirContents();
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws InterruptedException {
         deleteUploadTargetDirContents();
     }
 
@@ -110,8 +110,9 @@ public class FileStoreTest {
         assertThat(actualUploadFileBytes).containsAll(expectedUploadFileBytes);
     }
 
-    private void deleteUploadTargetDirContents() {
+    private void deleteUploadTargetDirContents() throws InterruptedException {
         File[] files = new File(fileDir).listFiles();
         stream(files).forEach(file -> file.delete());
+        Thread.sleep(500);
     }
 }

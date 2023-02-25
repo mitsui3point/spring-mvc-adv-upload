@@ -30,7 +30,12 @@ public class ServletUploadControllerV2Test extends TestRestTemplateMultipartExch
     private String uploadTargetDir;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InterruptedException {
+        deleteUploadTargetDirContents();
+    }
+
+    @AfterEach
+    void tearDown() throws InterruptedException {
         deleteUploadTargetDirContents();
     }
 
@@ -75,11 +80,6 @@ public class ServletUploadControllerV2Test extends TestRestTemplateMultipartExch
         assertThat(actualBytes).isEqualTo(expectedBytes);
     }
 
-    @AfterEach
-    void tearDown() {
-        deleteUploadTargetDirContents();
-    }
-
     @Override
     public void addHeader(HttpHeaders headers) {
         if (isCallerMethod("saveFileV2Test")) {
@@ -98,8 +98,9 @@ public class ServletUploadControllerV2Test extends TestRestTemplateMultipartExch
                 .isPresent();
     }
 
-    private void deleteUploadTargetDirContents() {
+    private void deleteUploadTargetDirContents() throws InterruptedException {
         stream(new File(uploadTargetDir).listFiles())
                 .forEach(o -> o.delete());
+        Thread.sleep(500);
     }
 }

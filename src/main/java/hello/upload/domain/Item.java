@@ -1,5 +1,7 @@
 package hello.upload.domain;
 
+import hello.upload.dto.ItemForm;
+import hello.upload.dto.ItemResult;
 import lombok.*;
 
 import java.util.List;
@@ -20,5 +22,14 @@ public class Item {
         this.name = name;
         this.attachFile = attachFile;
         this.imageFiles = imageFiles;
+    }
+
+    public ItemResult convertItemResult() {
+        return ItemResult.builder()
+                .id(id)
+                .name(name)
+                .attachFile(attachFile)
+                .imageFiles(imageFiles)
+                .build();
     }
 }

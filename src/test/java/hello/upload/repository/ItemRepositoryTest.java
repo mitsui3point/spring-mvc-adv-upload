@@ -4,6 +4,7 @@ package hello.upload.repository;
 import hello.upload.domain.Item;
 import hello.upload.domain.UploadFile;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,10 @@ public class ItemRepositoryTest {
     @BeforeEach
     void setUp() {
         itemRepository = new ItemRepository();
+    }
+
+    @AfterEach
+    void tearDown() {
         itemRepository.clear();
     }
 

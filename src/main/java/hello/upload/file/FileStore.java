@@ -35,7 +35,9 @@ public class FileStore {
     public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
         List<UploadFile> result = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
-            result.add(storeFile(multipartFile));
+            if (multipartFile != null) {
+                result.add(storeFile(multipartFile));
+            }
         }
         return result;
     }
