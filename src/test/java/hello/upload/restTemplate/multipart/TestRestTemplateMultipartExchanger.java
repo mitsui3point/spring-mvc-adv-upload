@@ -11,7 +11,6 @@ import org.springframework.util.MultiValueMap;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-//@ContextConfiguration
 public abstract class TestRestTemplateMultipartExchanger extends TestRestTemplateExchanger {
 
     public ResponseEntity<String> getMultipartSingleFileResponseEntity(String url,

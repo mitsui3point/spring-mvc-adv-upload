@@ -7,10 +7,12 @@ import hello.upload.dto.ItemResult;
 import hello.upload.file.FileStore;
 import hello.upload.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Service
@@ -23,8 +25,8 @@ public class ItemService {
 
         Item item = Item.builder()
                 .name(itemForm.getItemName())
-                .attachFile(getAttachFile(itemForm))
-                .imageFiles(getImageFiles(itemForm))
+                .attachFile(storeAndGetAttachFile(itemForm))
+                .imageFiles(storeAndGetImageFiles(itemForm))
                 .build();
 
         return itemRepository.save(item)
@@ -37,7 +39,8 @@ public class ItemService {
                 .convertItemResult();
     }
 
-    private List<UploadFile> getImageFiles(ItemForm itemForm) throws IOException {
+
+    private List<UploadFile> storeAndGetImageFiles(ItemForm itemForm) throws IOException {
         List<UploadFile> imageFiles = null;
         if (itemForm.getImageFiles() != null && itemForm.getImageFiles().size() > 0) {
             imageFiles = fileStore.storeFiles(itemForm.getImageFiles());
@@ -45,11 +48,15 @@ public class ItemService {
         return imageFiles;
     }
 
-    private UploadFile getAttachFile(ItemForm itemForm) throws IOException {
+    private UploadFile storeAndGetAttachFile(ItemForm itemForm) throws IOException {
         UploadFile attachFile = null;
         if (itemForm.getAttachFile() != null) {
             attachFile = fileStore.storeFile(itemForm.getAttachFile());
         }
         return attachFile;
+    }
+
+    public Resource downloadFile(String storeFileName) throws MalformedURLException {
+        return new UrlResource("file:" + fileStore.getUploadFilePath(storeFileName));
     }
 }

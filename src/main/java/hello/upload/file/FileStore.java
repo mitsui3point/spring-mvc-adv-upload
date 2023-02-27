@@ -24,7 +24,7 @@ public class FileStore {
         String extension = extractExtension(uploadFileName);
         String storeFileName = UUID.randomUUID().toString() + "." + extension;
 
-        file.transferTo(new File(getUploadFullFilePath(storeFileName)));
+        file.transferTo(new File(getUploadFilePath(storeFileName)));
 
         return UploadFile.builder()
                 .uploadFileName(uploadFileName)
@@ -42,7 +42,7 @@ public class FileStore {
         return result;
     }
 
-    private String getUploadFullFilePath(String storeFileName) {
+    public String getUploadFilePath(String storeFileName) {
         return fileDir + storeFileName;
     }
 

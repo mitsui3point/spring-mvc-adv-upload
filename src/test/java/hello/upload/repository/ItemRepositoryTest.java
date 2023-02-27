@@ -3,7 +3,6 @@ package hello.upload.repository;
 
 import hello.upload.domain.Item;
 import hello.upload.domain.UploadFile;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,7 @@ public class ItemRepositoryTest {
         Item savedItem = itemRepository.save(item);
 
         //then
-        assertThat(savedItem).extracting("name").isEqualTo(item.getName());
+        assertThat(savedItem).extracting("itemName").isEqualTo(item.getItemName());
         assertThat(savedItem).extracting("attachFile").isEqualTo(item.getAttachFile());
         assertThat(savedItem).extracting("imageFiles").isEqualTo(item.getImageFiles());
     }
@@ -54,7 +53,7 @@ public class ItemRepositoryTest {
 
         //then
         assertThat(actualItem).isPresent();
-        assertThat(actualItem.get()).extracting("name").isEqualTo(expectedItem.getName());
+        assertThat(actualItem.get()).extracting("itemName").isEqualTo(expectedItem.getItemName());
         assertThat(actualItem.get()).extracting("attachFile").isEqualTo(expectedItem.getAttachFile());
         assertThat(actualItem.get()).extracting("imageFiles").isEqualTo(expectedItem.getImageFiles());
     }
